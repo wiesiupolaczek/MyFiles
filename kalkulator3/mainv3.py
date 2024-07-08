@@ -61,7 +61,7 @@ def dzielenie(dzial):
 if __name__ == '__main__':
     q=1
     while q==1:
-        print("Instrukcje:\nQ,q-wyjscie\n' + ' - dodawanie\n' - ' - odejmowanie\n' / ' - dzielenie\n' * ' - mnozenie")
+        print("Instrukcje:\nQ,q-wyjscie\n' + ' - dodawanie\n' - ' - odejmowanie\n' / ' - dzielenie\n' * ' - mnozenie\ne.g.10*10*9*8...\n---------------------------------")
         wynik=0
         dzial=input("Dzialanie:\n")
         if dzial == "q" or dzial == "Q":

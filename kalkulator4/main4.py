@@ -39,6 +39,7 @@ def odejmowanie(a,b):
 def szukajdzielenia():
     global znaki
     global dzialanie
+    global erro
     dziel=dzialanie.find("/")
     if dziel > -1:
         ma=0
@@ -60,17 +61,28 @@ def szukajdzielenia():
         mb2=mb
         if ma1==0:
             ma1=ma1-1
-        a=float(dzialanie[ma1+1:ma2])
-        b=float(dzialanie[mb1+1:mb2])
-        wynik=dzielenie(a,b)
 
-        dzialanie=dzialanie[:ma1+1] + str(wynik) +dzialanie[mb2:]
+
+        try:
+            a = float(dzialanie[ma1 + 1:ma2])
+            b = float(dzialanie[mb1 + 1:mb2])
+            wynik=dzielenie(a,b)
+            dzialanie = dzialanie[:ma1 + 1] + str(wynik) + dzialanie[mb2:]
+        except ValueError:
+            print("Podawaj liczby")
+            return 1
+        except ZeroDivisionError:
+            print("Nie mozna dzielic przez 0")
+            erro = 1
+            return 1
+
 
     else:
         return 1
 def szukajmnozenia():
 
     global dzialanie
+    global erro
     dziel=dzialanie.find("*")
     if dziel > -1:
         ma=0
@@ -93,11 +105,17 @@ def szukajmnozenia():
         if ma1==0:
             ma1=ma1-1
 
-        a=float(dzialanie[ma1+1:ma2])
-        b=float(dzialanie[mb1+1:mb2])
-        wynik=mnozenie(a,b)
+        try:
+            a = float(dzialanie[ma1 + 1:ma2])
+            b = float(dzialanie[mb1 + 1:mb2])
+            wynik=mnozenie(a,b)
+            dzialanie = dzialanie[:ma1 + 1] + str(wynik) + dzialanie[mb2:]
+        except ValueError:
+            print("Podawaj liczby")
+            erro=1
+            return 1
 
-        dzialanie=dzialanie[:ma1+1] + str(wynik) +dzialanie[mb2:]
+
 
     else:
         return 1
@@ -105,6 +123,7 @@ def szukajmnozenia():
 def szukajdodawania():
 
     global dzialanie
+    global erro
     dziel=dzialanie.find("+")
     if dziel > -1:
         ma=0
@@ -127,17 +146,23 @@ def szukajdodawania():
 
         if ma1 ==0:
             ma1=ma1-1
-        a=float(dzialanie[ma1+1:ma2])
-        b=float(dzialanie[mb1+1:mb2])
-        wynik = dodawanie(a, b)
-        dzialanie = dzialanie[:ma1 + 1] + str(wynik) + dzialanie[mb2:]
 
+        try:
+            a = float(dzialanie[ma1 + 1:ma2])
+            b = float(dzialanie[mb1 + 1:mb2])
+            wynik = dodawanie(a, b)
+            dzialanie = dzialanie[:ma1 + 1] + str(wynik) + dzialanie[mb2:]
+        except ValueError:
+            print("Podawaj liczby")
+            erro=1
+            return 1
 
     else:
         return 1
 def szukajodejmowania():
 
     global dzialanie
+    global erro
     dziel=dzialanie.find("-")
     if dziel > -1:
         ma=0
@@ -160,31 +185,44 @@ def szukajodejmowania():
         if ma1 == 0:
             ma1=ma1-1
 
-        a=float(dzialanie[ma1+1:ma2])
-        b=float(dzialanie[mb1+1:mb2])
-        wynik=odejmowanie(a,b)
+        try:
+            a = float(dzialanie[ma1 + 1:ma2])
+            b = float(dzialanie[mb1 + 1:mb2])
+            wynik=odejmowanie(a,b)
+            dzialanie = dzialanie[:ma1 + 1] + str(wynik) + dzialanie[mb2:]
+        except ValueError:
+            print("Podawaj liczby")
+            erro=1
+            return 1
 
-        dzialanie=dzialanie[:ma1+1] + str(wynik) +dzialanie[mb2:]
+
 
     else:
         return 1
-szukaj=1
+
+erro=0
 wejscie=input("Dzialanie: ")
 dzialanie=wejscie
 stop=0
 znaki=["/","*","-","+"]
+while stop==0 and erro==0:
+
+    if szukajdzielenia() == 1:
+        if erro == 1:
+            break
+        if szukajmnozenia() == 1:
+            if erro == 1:
+                break
+            if szukajodejmowania() == 1:
+                if erro == 1:
+                    break
+                if szukajdodawania() == 1:
+                    if erro == 1:
+                        break
+                    stop = 1
 try:
-    while stop==0:
-
-        if szukajdzielenia() ==1:
-            if szukajmnozenia() ==1:
-                if szukajodejmowania()==1:
-                    if szukajdodawania()==1:
-                        stop=1
-    print(dzialanie)
-except ZeroDivisionError:
-    print("Nie mozna dzielic przez zero")
+    if float(dzialanie):
+        print(dzialanie)
 except ValueError:
-    print("Uzywaj liczb")
-
+    pass
 
