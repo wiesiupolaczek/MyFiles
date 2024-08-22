@@ -39,6 +39,7 @@ def getCalendar(year,month):
         for i in range(7):
             dayNumLabel = str(currnetDate.day).rjust(2)
             dayNumRow += "|" + dayNumLabel + "       "
+
             currnetDate += datetime.timedelta(days=1)
         dayNumRow += "|\n"
 
