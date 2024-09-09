@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Available Books</title>
+</head>
+<body>
+    <h1>Available Books</h1>
+    <ul>
+        {% for book in books %}
+            <li>{{ book.book_id }}. {{ book.title }} {% if book.borrowed %}(Borrowed){% endif %}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'borrow_book' %}">Borrow a Book</a>
+    <a href="{% url 'return_book' %}">Return a Book</a>
+    <a href="{% url 'user_list' %}">User List</a>
+</body>
+</html>
